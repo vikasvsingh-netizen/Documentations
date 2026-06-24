@@ -266,5 +266,226 @@ Problem : Use old framework version
 -------------------------------------------------------------------------------------------------------------------------------------------------------------
 Topic 2: How AI IDE Actually Works Internally
 -------------------------------------------------------------------------------------------------------------------------------------------------------------
+The Agent = LLM + Orchestrator + Tools + Memory + Planning Loop
+       The LLM is only the reasoning engine.
+       Everything else is ordinary software.
 
+Internal Flow : 
+User Request
+      ↓
+Context Collection
+      ↓
+Memory Retrieval
+      ↓
+Skill Discovery
+      ↓
+Skill Selection
+      ↓
+Prompt Construction
+      ↓
+Planning
+      ↓
+Tool Invocation
+      ↓
+Execution
+      ↓
+Validation
+      ↓
+Response
+
+
+Every Agentic IDE differs in some or other way at every stage , depends on thier advancement.
+
+eg of planning phase difference  : 
+Reactive Agent: No overall plan.
+Task
+ ↓
+Think
+ ↓
+Execute
+ ↓
+Think
+ ↓
+Execute
+
+Planning Agent: More expensive & Usually more reliable.
+Task
+ ↓
+Create Plan
+ ↓
+Step 1
+ ↓
+Step 2
+ ↓
+Step 3
+ ↓
+Validate
+
+Reality of how Agentic IDE works is close to : 
+User
+ ↓
+Orchestrator
+ ↓
+Context Engine
+ ↓
+Memory Engine
+ ↓
+Tool Registry
+ ↓
+Prompt Builder
+ ↓
+LLM
+ ↓
+Planner
+ ↓
+Tool Executor
+ ↓
+Validator
+ ↓
+Retry Loop
+ ↓
+Result
+
+The exact implementation differs between Cursor, Claude Code, Cline, Devin, OpenHands, and others.
+But the architectural pattern remains remarkably similar, because every agent ultimately has to solve the same fundamental problem:
+
+Solution : 
+Most organizations make a mistake: They standardize the IDE.
+What they should standardize is: The AI Development Platform above the IDE.
+
+
+With Organization AI Platform
+Flow becomes :
+Cursor
+   ↓
+Organization AI Platform
+   ↓
+OpenAI / Claude
+   ↓
+Response
+
+Cursor does not call model directly.
+First it passes from company platform.
+
+What actually is Organization AI Platform?
+Layer 1: Knowledge Base ( Company documents. )
+eg : 
+Architecture Guide
+Coding Standards
+Security Standards
+API Conventions
+Database Documentation
+
+Layer 2 : Repository Intelligence
+eg : 
+Folder structure
+Naming conventions
+Existing patterns
+
+Layer 3: Governance =  company rules
+eg :
+Every endpoint must:
+- Use JWT
+- Have logging
+- Have validation
+
+Layer 4: Policy Engine : Automated checks.
+eg: 
+
+Layer 5: Tool Integration
+etc..
+
+Organization AI Platform Architecture :
+
+Developer
+    ↓
+Any AI IDE (Cursor / Claude Code / Copilot / Cline)
+    ↓
+Organization AI Platform (AI Gateway)
+    │
+    ├── Knowledge Base
+    │     - Architecture docs
+    │     - Coding standards
+    │     - Security guidelines
+    │
+    ├── Vector Database
+    │     - Embeddings of docs and code
+    │     - Semantic search for relevant context
+    │
+    ├── Repository Intelligence
+    │     - Search existing code
+    │     - Discover patterns and conventions
+    │     - Find similar implementations
+    │
+    ├── Prompt Builder
+    │     - Combines:
+    │         User Request
+    │         + Relevant Docs
+    │         + Existing Code Examples
+    │         + Coding Standards
+    │         + Security Policies
+    │
+    ├── Policy Engine
+    │     - Security checks
+    │     - Compliance checks
+    │     - Architecture validation
+    │
+    └── LLM Gateway
+          - OpenAI
+          - Claude
+          - Gemini
+          - Local Models
+    ↓
+Generated Code
+
+Request Flow : 
+Developer Prompt:
+"Create Product API"
+
+1. IDE sends request to Organization AI Platform.
+
+2. Platform performs retrieval:
+   - Search architecture documents
+   - Search coding standards
+   - Search security policies
+   - Search repositories for similar APIs
+
+3. Platform builds enriched prompt:
+
+   User Request:
+   Create Product API
+
+   Relevant Architecture:
+   Use CQRS + MediatR
+
+   Coding Standards:
+   Controllers must be thin
+
+   Existing Example:
+   GetOrderByIdHandler.cs
+
+   Security Rules:
+   JWT authentication required
+
+4. Enriched prompt is sent to the LLM.
+
+5. Returned code passes through policy/security checks.
+
+6. Final response is returned to the IDE.
+
+Architecture that should be used : 
+AGENTS.md                    ← master AI instructions
+
+architecturedocs/
+├── architecture.md
+├── coding-standards.md
+├── security.md
+├── database.md
+├── api-design.md
+├── testing.md
+└── adr/
+
+.github/copilot-instructions.md
+.cursor/rules/architecture.mdc
+CLAUDE.md
 
