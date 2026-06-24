@@ -474,16 +474,35 @@ Developer Prompt:
 6. Final response is returned to the IDE.
 
 Architecture that should be used : 
-AGENTS.md                    ← master AI instructions
-
-architecturedocs/
-├── architecture.md
-├── coding-standards.md
-├── security.md
-├── database.md
-├── api-design.md
-├── testing.md
-└── adr/
+repo-root/
+│
+├── architecturedocs/
+│   ├── architecture.md
+│   ├── coding-standards.md
+│   ├── api-design.md
+│   ├── database.md
+│   ├── ui-patterns.md
+│   ├── security.md
+│   └── testing.md
+│
+├── .github/
+│   ├── copilot-instructions.md
+│   └── instructions/
+│       ├── backend.instructions.md
+│       ├── frontend.instructions.md
+│       └── testing.instructions.md
+│
+├── .cursor/
+│   └── rules/
+│       ├── architecture.mdc
+│       ├── backend.mdc
+│       └── frontend.mdc
+│
+├── CLAUDE.md
+│
+├── AGENTS.md
+│
+└── README.md
 
 .github/copilot-instructions.md
 .cursor/rules/architecture.mdc
